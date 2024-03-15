@@ -1,10 +1,14 @@
 <?php 
 
-require 'controllers/baseController.php';
-require 'views/template.php';
-require 'models/page.php';
+require 'controllers/BaseController.php';
+require 'views/Template.php';
+require 'models/Page.php';
+require 'db/DatabaseConnection.php';
 
 session_start();
+
+DatabaseConnection::connect("db:3306", "db", "db", "db");
+
 
 $section = $_GET['section'] ?? $_POST['section'] ?? 'home'; 
 $action =  $_GET['action'] ?? $_POST['action'] ?? 'default';

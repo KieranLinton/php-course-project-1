@@ -3,7 +3,10 @@
 class HomeController extends BaseController {
     public function defaultAction() {
 
-        $pageObj = new Page();
+        $dbh = DatabaseConnection::getInstance();
+        $dbc = $dbh->getConnection();
+
+        $pageObj = new Page($dbc);
         $pageObj->getById(1);
         $variables["pageObj"] = $pageObj;
 
