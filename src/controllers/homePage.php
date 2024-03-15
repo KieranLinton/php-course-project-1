@@ -2,6 +2,13 @@
 
 class HomeController extends BaseController {
     public function defaultAction() {
-        include "views/home-page.html";
+
+        $pageObj = new Page();
+        $pageObj->getById(1);
+        $variables["pageObj"] = $pageObj;
+
+        $template = new Template();
+        $template->view("home-page", $variables);
     }
+
 }

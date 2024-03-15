@@ -3,21 +3,24 @@
 class ContactController extends BaseController {
 
     function runBeforeAction() {
-        if($_SESSION["has_submitted_contact_form"]){
-            include "views/contact/already-submitted.html";
+        if($_SESSION["has_submitted_contact_form"] ?? false){
+            $template = new Template();
+            $template->view("contact/already-submitted");
             return false;
         } 
         return true;
     }
 
     function defaultAction() {
-        include "views/contact/contact-us.html";
+        $template = new Template();
+        $template->view("contact/contact-us");
     }
 
 
     function submitContactFormAction(){
         $_SESSION["has_submitted_contact_form"] = true;
-        include "views/contact/contact-us-thank-you.html";
+        $template = new Template();
+        $template->view("contact/contact-us-thank-you");
     }
 }
 
