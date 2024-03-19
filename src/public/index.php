@@ -26,7 +26,7 @@ $router = new Router($dbc);
 $pageTemplate = new Template();
 
 if (!$router->findBy("url", $action)) {
-  $pageTemplate->view("status-pages/404");
+  $pageTemplate->view("../views/status-pages/404");
   return;
 }
 
@@ -36,7 +36,7 @@ $moduleName = ucfirst($router->{"module"}) . 'Controller';
 $modulePath = MODULE_PATH . $router->{'module'} . "/controllers/$moduleName.php";
 
 if (!file_exists($modulePath)) {
-  $pageTemplate->view("status-pages/404");
+  $pageTemplate->view("../status-pages/404");
   return;
 }
 
