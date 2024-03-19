@@ -15,7 +15,6 @@ final class DatabaseConnection {
 
     private function __clone() {}
 
-    private function __wakeup() {}
 
     public static function connect($host, $dbName, $user, $password) { 
         try{ 
@@ -35,4 +34,5 @@ final class DatabaseConnection {
     public static function getConnection(){
         return self::$connection;
     }
+
 }

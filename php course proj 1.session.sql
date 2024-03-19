@@ -1,5 +1,5 @@
  INSERT INTO pages (title, content)
     VALUES (
-        'Home page',
-        'this content is comming from the database'
+        'Thank you',
+        'We reply in two buisness days.'
       );
