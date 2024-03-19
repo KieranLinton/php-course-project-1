@@ -2,7 +2,7 @@
 
 class Template
 {
-    public function view($template, $variables = [])
+    public function view(string $template, $variables = [])
     {
         extract($variables);
 

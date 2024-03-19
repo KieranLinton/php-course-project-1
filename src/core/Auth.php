@@ -3,7 +3,7 @@ class Auth
 {
     protected $dbc;
 
-    public function __construct($dbc)
+    public function __construct(PDO $dbc)
     {
         $this->dbc = $dbc;
     }
@@ -16,8 +16,11 @@ class Auth
             return false;
         }
 
-        if ($userObj->{'password'} == md5($password . ENCRYPTION_SALT . $userObj->{'password_hash'})) {
+        if ($userObj->{'password'} !== md5($password . ENCRYPTION_SALT . $userObj->{'password_hash'})) {
+            return false;
         }
+
+        return true;
     }
 
 

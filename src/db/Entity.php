@@ -9,7 +9,7 @@ abstract class Entity
     abstract protected function initFields();
 
 
-    public function __construct($dbc, $tableName)
+    public function __construct(PDO $dbc, string $tableName)
     {
         $this->dbc = $dbc;
         $this->tableName = $tableName;
@@ -17,7 +17,7 @@ abstract class Entity
     }
 
 
-    public function findBy($fieldName, $fieldValue)
+    public function findBy(string $fieldName, $fieldValue)
     {
 
         $sql = "SELECT * FROM " . $this->tableName . " WHERE " . $fieldName . " = :value LIMIT 1";

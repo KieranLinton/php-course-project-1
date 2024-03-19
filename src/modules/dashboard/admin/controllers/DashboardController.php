@@ -5,7 +5,7 @@ class DashboardController extends BaseController
 
     function runBeforeAction()
     {
-        $action = $_GET['action'] ?? $_POST['action'] ?? 'default';
+        $action =  $_POST['action'] ?? $_GET['action'] ?? 'default';
 
         if ($action === "login") {
             return true;
@@ -36,5 +36,20 @@ class DashboardController extends BaseController
     {
         $username = $_POST["username"] ?? "";
         $password = $_POST["password"] ?? "";
+
+
+        $dbh = DatabaseConnection::getInstance();
+        $dbc = $dbh->getConnection();
+
+        $auth = new Auth($dbc);
+
+        if (!$auth->checkLogin($username, $password)) {
+            echo "bad login";
+            exit;
+        }
+
+        $_SESSION["is_admin"] = true;
+        header("Location: /admin/");
+        exit;
     }
 }

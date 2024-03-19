@@ -4,10 +4,11 @@ class BaseController
 {
     protected $entityId;
 
-    function runAction($actionName)
+    function runAction(string $actionName)
     {
 
         $continue = $this->runBeforeAction();
+
 
         if (!$continue) {
             return;
@@ -29,7 +30,7 @@ class BaseController
         return true;
     }
 
-    public function setEntityId($entityId)
+    public function setEntityId(int $entityId)
     {
         $this->entityId = $entityId;
     }

@@ -14,13 +14,13 @@ requireOnceAll(ROOT_PATH . 'db/*.php');
 requireOnceAll(ROOT_PATH . 'core/*.php');
 
 require_once MODULE_PATH . 'page/models/Page.php';
-
+require_once MODULE_PATH . 'users/models/User.php';
 
 
 DatabaseConnection::connect("db:3306", "db", "db", "db");
 
-$module = $_GET['module'] ?? $_POST['module'] ?? 'dashboard';
-$action = $_GET['action'] ?? $_POST['action'] ?? 'default';
+$module = $_POST['module'] ?? $_GET['module'] ?? 'dashboard';
+$action =  $_POST['action'] ?? $_GET['action'] ?? 'default';
 
 if ($module == 'dashboard') {
 
