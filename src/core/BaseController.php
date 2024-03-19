@@ -17,7 +17,7 @@ class BaseController
 
         if (!method_exists($this, $actionName)) {
             $template = new Template();
-            $template->view("status-pages/404");
+            $template->view(VIEW_PATH . "status-pages/404");
             return;
         }
 

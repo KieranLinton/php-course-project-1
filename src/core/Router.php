@@ -5,10 +5,11 @@ class Router extends Entity
 
     public function __construct($dbc)
     {
-        $this->dbc = $dbc;
+        parent::__construct($dbc, 'routes');
+    }
 
-        $this->tableName = 'routes';
-
+    protected function initFields()
+    {
         $this->fields = [
             'id',
             'module',
