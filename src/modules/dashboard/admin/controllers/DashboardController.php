@@ -34,8 +34,22 @@ class DashboardController extends BaseController
 
     function submitLoginFormAction()
     {
+
+        $userNameValidator = new UsernameValidator();
+        $passwordValidator = new PasswordValidator();
+
         $username = $_POST["username"] ?? "";
         $password = $_POST["password"] ?? "";
+
+        $validationError = $userNameValidator->validate($username);
+        $validationError = $validationError ?? $passwordValidator->validate($password);
+
+
+        if ($validationError) {
+            echo "Validation error: $validationError";
+            include VIEW_PATH . "admin/login.html";
+            exit;
+        }
 
 
         $dbh = DatabaseConnection::getInstance();
