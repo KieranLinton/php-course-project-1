@@ -10,9 +10,8 @@ class UsernameValidator extends Validator
     protected function getRules(): array
     {
         return [
-            ValidationRules::minLength(5),
-            ValidationRules::maxLength(30),
-            ValidationRules::specialCharacters(0),
+            ValidationRules::minLength(3),
+            ValidationRules::isEmail()
         ];
     }
 }

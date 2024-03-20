@@ -6,7 +6,7 @@ class ValidationRules
     {
         return function (string $value) use ($length) {
             if (strlen($value) < $length) {
-                return "Must be longer than $length characters.";
+                return "must be longer than $length characters.";
             }
         };
     }
@@ -15,24 +15,35 @@ class ValidationRules
     {
         return function (string $value) use ($length) {
             if (strlen($value) > $length) {
-                return "Cannot be longer than $length characters.";
+                return "cannot be longer than $length characters.";
             }
         };
     }
 
-    public static function specialCharacters(int $count)
+    public static function specialCharacters(bool $enabled)
     {
-        return function (string $value) use ($count) {
-            $clampedCount = max($count, 1);
+        return function (string $value) use ($enabled) {
 
-            $isMatch = preg_match("/.*[*#&$%!?]{{$clampedCount}}.*/m", $value);
+            $foundSpecialChars = !!preg_match("/[^a-zA-Z0-9_]+/", $value);
 
-            if ($count < 1 && $isMatch) {
-                return "Must not contain special characters (*#&$%!?).";
+            if (!$enabled && $foundSpecialChars) {
+                return "must not contain special characters.";
             }
 
-            if ($count > 1 && !$isMatch) {
-                return "Must contain at least one special character (*#&$%!?).";
+            if ($enabled && !$foundSpecialChars) {
+                return "must contain at least one special character.";
+            }
+        };
+    }
+
+    public static function isEmail()
+    {
+        return function (string $value) {
+
+            $isEmail = filter_var($value, FILTER_VALIDATE_EMAIL);
+
+            if (!$isEmail) {
+                return "must be a valid email address";
             }
         };
     }

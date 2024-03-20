@@ -12,7 +12,7 @@ class PasswordValidator extends Validator
         return [
             ValidationRules::minLength(6),
             ValidationRules::maxLength(20),
-            ValidationRules::specialCharacters(1),
+            ValidationRules::specialCharacters(true),
         ];
     }
 }

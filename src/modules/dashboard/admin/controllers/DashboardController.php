@@ -46,9 +46,9 @@ class DashboardController extends BaseController
 
 
         if ($validationError) {
-            echo "Validation error: $validationError";
-            include VIEW_PATH . "admin/login.html";
-            exit;
+            $_SESSION["validation_errors"] = $validationError;
+            header("Location: /admin/");
+            return;
         }
 
 
