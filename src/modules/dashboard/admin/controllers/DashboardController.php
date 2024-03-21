@@ -58,7 +58,8 @@ class DashboardController extends BaseController
         $auth = new Auth($dbc);
 
         if (!$auth->checkLogin($username, $password)) {
-            echo "bad login";
+            $_SESSION["validation_errors"] = "Username or password not correct.";
+            header("Location: /admin/");
             exit;
         }
 

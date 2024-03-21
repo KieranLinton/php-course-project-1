@@ -10,9 +10,9 @@ class PasswordValidator extends Validator
     protected function getRules(): array
     {
         return [
-            ValidationRules::minLength(6),
-            ValidationRules::maxLength(20),
-            ValidationRules::specialCharacters(true),
+            new MinLengthCheck(6),
+            new MaxLengthCheck(20),
+            new SpecialCharacterCheck(true),
         ];
     }
 }

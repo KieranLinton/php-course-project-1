@@ -14,7 +14,7 @@ abstract class Validator
     {
         $rules = $this->getRules();
         foreach ($rules as $key => $rule) {
-            $validationError = $rule($data);
+            $validationError = $rule->validate($data);
 
             if ($validationError) {
                 return ucfirst($this->fieldName) . ' ' . $validationError;
