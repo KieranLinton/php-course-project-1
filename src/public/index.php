@@ -6,7 +6,7 @@ define('ROOT_PATH', dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_S
 define('VIEW_PATH', ROOT_PATH . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR);
 define('MODULE_PATH', ROOT_PATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR);
 
-require_once ROOT_PATH . "utils/includeAll.php";
+require_once ROOT_PATH . "core/utils/includeAll.php";
 
 requireOnceAll(ROOT_PATH . 'db/*.php');
 requireOnceAll(ROOT_PATH . 'core/*.php');
