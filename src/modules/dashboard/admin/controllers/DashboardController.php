@@ -36,21 +36,17 @@ class DashboardController extends BaseController
     {
 
         $userNameValidator = new UsernameValidator();
-        $passwordValidator = new PasswordValidator();
 
         $username = $_POST["username"] ?? "";
         $password = $_POST["password"] ?? "";
 
         $validationError = $userNameValidator->validate($username);
-        $validationError = $validationError ?? $passwordValidator->validate($password);
-
 
         if ($validationError) {
             $_SESSION["validation_errors"] = $validationError;
             header("Location: /admin/");
             exit;
         }
-
 
         $dbh = DatabaseConnection::getInstance();
         $dbc = $dbh->getConnection();
