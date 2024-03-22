@@ -2,17 +2,18 @@
 
 abstract class Validator
 {
-    abstract protected function getRules(): array;
-    protected $fieldName;
+    private $fieldName;
 
+    abstract protected function getRuleList(): RuleList;
 
     protected function __construct(string $fieldName)
     {
         $this->fieldName = $fieldName;
     }
-    public function validate(string $data)
+    public function validate(string $data): ?string
     {
-        $rules = $this->getRules();
+
+        $rules = $this->getRuleList()->getRules();
         foreach ($rules as $key => $rule) {
             $validationResult = $rule->validate($data);
 
@@ -21,5 +22,7 @@ abstract class Validator
                 return ucfirst($this->fieldName) . " $errorMessage.";
             }
         }
+
+        return null;
     }
 }

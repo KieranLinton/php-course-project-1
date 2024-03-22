@@ -7,13 +7,13 @@ class PasswordValidator extends Validator
         parent::__construct('password');
     }
 
-    protected function getRules(): array
+    protected function getRuleList(): RuleList
     {
-        return [
+        return new RuleList(
             new MinLengthCheck(6),
             new MaxLengthCheck(20),
             new NoEmptySpaceCheck(),
-            new SpecialCharacterCheck(true),
-        ];
+            new SpecialCharacterCheck(true)
+        );
     }
 }

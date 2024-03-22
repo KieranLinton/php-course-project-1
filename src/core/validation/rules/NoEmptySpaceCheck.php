@@ -1,8 +1,8 @@
 <?php
 
-class NoEmptySpaceCheck
+class NoEmptySpaceCheck implements ValidationRuleInterface
 {
-    function validate($value)
+    function validate(string $value): bool
     {
         if (strpos($value, ' ')) {
             return false;
@@ -11,7 +11,7 @@ class NoEmptySpaceCheck
         return true;
     }
 
-    function getErrorMessage()
+    function getErrorMessage(): string
     {
         return "must not contain empty spaces";
     }

@@ -1,6 +1,6 @@
 <?php
 
-class MaxLengthCheck
+class MaxLengthCheck implements ValidationRuleInterface
 {
     private $length;
 
@@ -9,7 +9,7 @@ class MaxLengthCheck
         $this->length = $length;
     }
 
-    function validate($value)
+    public function validate(string $value): bool
     {
         if (strlen($value) > $this->length) {
             return false;
@@ -18,7 +18,7 @@ class MaxLengthCheck
         return true;
     }
 
-    function getErrorMessage()
+    public function getErrorMessage(): string
     {
         return "cannot be longer than $this->length characters";
     }

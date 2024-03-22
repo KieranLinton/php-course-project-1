@@ -7,11 +7,11 @@ class UsernameValidator extends Validator
         parent::__construct('username');
     }
 
-    protected function getRules(): array
+    protected function getRuleList(): RuleList
     {
-        return [
+        return new RuleList(
             new MinLengthCheck(3),
             new IsEmailCheck()
-        ];
+        );
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-class MinLengthCheck
+class MinLengthCheck implements ValidationRuleInterface
 {
     private $length;
 
@@ -9,7 +9,7 @@ class MinLengthCheck
         $this->length = $length;
     }
 
-    function validate($value)
+    function validate(string $value): bool
     {
         if (strlen($value) < $this->length) {
             return false;
@@ -18,7 +18,7 @@ class MinLengthCheck
         return true;
     }
 
-    function getErrorMessage()
+    function getErrorMessage(): string
     {
         return "must be longer than $this->length characters";
     }

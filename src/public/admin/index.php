@@ -12,6 +12,7 @@ require_once ROOT_PATH . "core/utils/includeAll.php";
 
 requireOnceAll(ROOT_PATH . 'db/*.php');
 requireOnceAll(ROOT_PATH . 'core/*.php');
+requireOnceAll(ROOT_PATH . 'core/*/*.php');
 requireOnceAll(ROOT_PATH . 'core/*/*/*.php');
 
 require_once MODULE_PATH . 'page/models/Page.php';

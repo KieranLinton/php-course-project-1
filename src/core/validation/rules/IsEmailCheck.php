@@ -1,8 +1,8 @@
 <?php
 
-class IsEmailCheck
+class IsEmailCheck implements ValidationRuleInterface
 {
-    function validate($value)
+    function validate(string $value): bool
     {
         $isEmail = filter_var($value, FILTER_VALIDATE_EMAIL);
 
@@ -13,7 +13,7 @@ class IsEmailCheck
         return true;
     }
 
-    function getErrorMessage()
+    function getErrorMessage(): string
     {
         return "must be a valid email address";
     }

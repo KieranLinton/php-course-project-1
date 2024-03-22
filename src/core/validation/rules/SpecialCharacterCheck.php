@@ -1,6 +1,6 @@
 <?php
 
-class SpecialCharacterCheck
+class SpecialCharacterCheck implements ValidationRuleInterface
 {
     private $enabled;
     private $errorMessage;
@@ -10,7 +10,7 @@ class SpecialCharacterCheck
         $this->enabled = $enabled;
     }
 
-    function validate($value)
+    function validate(string $value): bool
     {
         $foundSpecialChars = !!preg_match("/[^a-zA-Z0-9_]+/", $value);
 
@@ -27,7 +27,7 @@ class SpecialCharacterCheck
         return true;
     }
 
-    function getErrorMessage()
+    function getErrorMessage(): string
     {
         return $this->errorMessage;
     }
