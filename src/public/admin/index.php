@@ -16,6 +16,7 @@ requireOnceAll(ROOT_PATH . 'core/*/*.php');
 requireOnceAll(ROOT_PATH . 'core/*/*/*.php');
 
 require_once MODULE_PATH . 'page/models/Page.php';
+require_once MODULE_PATH . 'admin/pageList/models/PageSummaryView.php';
 
 require_once MODULE_PATH . 'users/models/User.php';
 

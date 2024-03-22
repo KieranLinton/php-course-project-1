@@ -37,16 +37,22 @@ abstract class AbstractEntity
     {
 
         $sql = "SELECT * FROM $this->tableName";
+        echo $sql;
         $stmt = $this->dbc->prepare($sql);
         $stmt->execute();
-        $databaseData = $stmt->fetch();
+        $databaseData = $stmt->fetchAll();
 
         if (!$databaseData) {
             return [];
         }
 
-        $this->setValues($databaseData);
-        return true;
+        $results = array_map(function ($row) {
+            $obj = new $this($this->dbc, $this->tableName);
+            $obj->setValues($row);
+            return $obj;
+        }, $databaseData);
+
+        return $results;
     }
 
     public function setValues($values)

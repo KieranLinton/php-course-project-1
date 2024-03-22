@@ -53,39 +53,46 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>
-                #
-              </td>
-              <td>
-                <a>
-                  TITLE
-                </a>
-              </td>
-              <td class="project_progress">
-                BLAH
-              </td>
-              <td class="project-state">
-                SOMETHING
-              </td>
-              <td class="project-actions text-right">
-                <a class="btn btn-primary btn-sm" href="#">
-                  <i class="fas fa-folder">
-                  </i>
-                  View
-                </a>
-                <a class="btn btn-info btn-sm" href="#">
-                  <i class="fas fa-pencil-alt">
-                  </i>
-                  Edit
-                </a>
-                <a class="btn btn-danger btn-sm" href="#">
-                  <i class="fas fa-trash">
-                  </i>
-                  Delete
-                </a>
-              </td>
-            </tr>
+            <?php
+            foreach ($pageObj["pageSumaries"] as $summary) {
+              echo <<<HTML
+                  <tr>
+                    <td>
+                      #
+                    </td>
+                    <td>
+                      <a>
+                        $summary->id
+                      </a>
+                    </td>
+                    <td class="project_progress">
+                      $summary->title
+                    </td>
+                    <td class="project-state">
+                    $summary->content
+                    </td>
+                    <td class="project-actions text-right">
+                      <a class="btn btn-primary btn-sm" href="#">
+                        <i class="fas fa-folder">
+                        </i>
+                        View
+                      </a>
+                      <a class="btn btn-info btn-sm" href="#">
+                        <i class="fas fa-pencil-alt">
+                        </i>
+                        Edit
+                      </a>
+                      <a class="btn btn-danger btn-sm" href="#">
+                        <i class="fas fa-trash">
+                        </i>
+                        Delete
+                      </a>
+                    </td>
+                  </tr>
+                HTML;
+            }
+            ?>
+
           </tbody>
         </table>
       </div>

@@ -20,7 +20,6 @@ require_once MODULE_PATH . 'page/models/Page.php';
 
 require_once MODULE_PATH . 'users/models/User.php';
 
-
 DatabaseConnection::connect("db:3306", "db", "db", "db");
 
 $dbh = DatabaseConnection::getInstance();
