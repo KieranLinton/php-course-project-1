@@ -1,6 +1,6 @@
 <?php
 
-class Router extends Entity
+class Router extends AbstractEntity
 {
 
     public function __construct(PDO $dbc)

@@ -1,6 +1,6 @@
 <?php
 
-class User extends Entity
+class User extends AbstractEntity
 {
 
     public function __construct(PDO $dbc)

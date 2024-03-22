@@ -1,6 +1,6 @@
 <?php
 
-class PasswordValidator extends Validator
+class PasswordValidator extends AbstractValidator
 {
     public function __construct()
     {

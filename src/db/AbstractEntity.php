@@ -1,6 +1,6 @@
 <?php
 
-abstract class Entity
+abstract class AbstractEntity
 {
     protected $dbc;
     protected $tableName;

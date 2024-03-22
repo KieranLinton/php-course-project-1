@@ -1,7 +1,7 @@
 <?php
 
 
-class Page extends Entity
+class Page extends AbstractEntity
 {
     public function __construct(PDO $dbc)
     {

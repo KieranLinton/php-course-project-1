@@ -1,6 +1,6 @@
 <?php
 
-class UsernameValidator extends Validator
+class UsernameValidator extends AbstractValidator
 {
     public function __construct()
     {

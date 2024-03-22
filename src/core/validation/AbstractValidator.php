@@ -1,6 +1,6 @@
 <?php
 
-abstract class Validator
+abstract class AbstractValidator
 {
     private $fieldName;
 
