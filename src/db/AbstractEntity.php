@@ -33,6 +33,22 @@ abstract class AbstractEntity
         return true;
     }
 
+    public function getAll()
+    {
+
+        $sql = "SELECT * FROM $this->tableName";
+        $stmt = $this->dbc->prepare($sql);
+        $stmt->execute();
+        $databaseData = $stmt->fetch();
+
+        if (!$databaseData) {
+            return [];
+        }
+
+        $this->setValues($databaseData);
+        return true;
+    }
+
     public function setValues($values)
     {
         foreach ($this->fields as $fieldName) {

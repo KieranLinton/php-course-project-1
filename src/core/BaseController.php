@@ -7,9 +7,7 @@ class BaseController
 
     function runAction(string $actionName)
     {
-
         $continue = $this->runBeforeAction();
-
 
         if (!$continue) {
             return;
@@ -25,7 +23,7 @@ class BaseController
         $this->$actionName();
     }
 
-    function runBeforeAction()
+    protected function runBeforeAction()
     {
         return true;
     }

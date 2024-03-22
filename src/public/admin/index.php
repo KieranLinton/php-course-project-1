@@ -25,17 +25,26 @@ DatabaseConnection::connect("db:3306", "db", "db", "db");
 $module = $_POST['module'] ?? $_GET['module'] ?? 'dashboard';
 $action =  $_POST['action'] ?? $_GET['action'] ?? 'default';
 
-if ($module == 'dashboard') {
+switch ($module) {
+  case 'login':
+    include MODULE_PATH . 'admin/login/controllers/LoginController.php';
 
-  include MODULE_PATH . 'dashboard/admin/controllers/DashboardController.php';
+    $dashboardController = new LoginController();
+    $dashboardController->runAction($action);
+    break;
+  case 'dashboard':
+    include MODULE_PATH . 'admin/dashboard/controllers/DashboardController.php';
 
-  $dashboardController = new DashboardController();
-  $dashboardController->template = new Template('admin/layout/default');
-  $dashboardController->runAction($action);
-} elseif ($module = "page") {
-  require_once MODULE_PATH . 'page/admin/controllers/PageController.php';
+    $dashboardController = new DashboardController();
+    $dashboardController->template = new Template('admin/layout/default');
+    $dashboardController->runAction($action);
+    break;
 
-  $dashboardController = new PageController();
-  $dashboardController->template = new Template('admin/layout/default');
-  $dashboardController->runAction($action);
+  case $module = "pageList":
+    require_once MODULE_PATH . 'admin/pageList/controllers/PageListController.php';
+
+    $dashboardController = new PageListController();
+    $dashboardController->template = new Template('admin/layout/default');
+    $dashboardController->runAction($action);
+    break;
 }

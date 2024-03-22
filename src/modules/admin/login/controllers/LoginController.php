@@ -1,35 +1,21 @@
 <?php
 
-class DashboardController extends BaseController
+class LoginController extends BaseController
 {
-
-    function runBeforeAction()
+    protected function runBeforeAction()
     {
-        $action =  $_POST['action'] ?? $_GET['action'] ?? 'default';
-
-        if ($action === "login") {
-            return true;
-        }
-
-        if ($action === "submitLoginForm") {
-            return true;
-        }
-
-        if ($_SESSION["is_admin"] !== true) {
-            header("Location: /admin/index.php?module=dashboard&action=login");
+        if ($_SESSION["is_admin"] ?? false === true) {
+            header("Location: /admin/");
             return false;
         }
 
         return true;
     }
-    public function defaultAction()
-    {
-        $this->template->view("page/admin/views/page-list");
-    }
 
-    function loginAction()
+    function defaultAction()
     {
-        include VIEW_PATH . "admin/login.html";
+        $_SESSION["validation_errors"] = null;
+        include MODULE_PATH . "admin/login/views/login.html";
     }
 
     function submitLoginFormAction()
@@ -44,7 +30,7 @@ class DashboardController extends BaseController
 
         if ($validationError) {
             $_SESSION["validation_errors"] = $validationError;
-            header("Location: /admin/");
+            include MODULE_PATH . "admin/login/views/login.html";
             exit;
         }
 
@@ -55,7 +41,7 @@ class DashboardController extends BaseController
 
         if (!$auth->checkLogin($username, $password)) {
             $_SESSION["validation_errors"] = "Username or password not correct.";
-            header("Location: /admin/");
+            include MODULE_PATH . "admin/login/views/login.html";
             exit;
         }
 
