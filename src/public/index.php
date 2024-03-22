@@ -23,7 +23,8 @@ $dbh = DatabaseConnection::getInstance();
 $dbc = $dbh->getConnection();
 
 $router = new Router($dbc);
-$pageTemplate = new Template();
+$pageTemplate = new Template('layout/default');
+
 
 if (!$router->findBy("url", $action)) {
   $pageTemplate->view("../views/status-pages/404");
@@ -41,6 +42,8 @@ if (!file_exists($modulePath)) {
 }
 
 include $modulePath;
+
 $controller = new $moduleName();
+$controller->template = $pageTemplate;
 $controller->setEntityId($router->{"entity_id"});
 $controller->runAction($action);

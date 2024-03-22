@@ -14,8 +14,7 @@ class ContactController extends BaseController
             $pageObj->findBy("id", $this->entityId);
             $variables["pageObj"] = $pageObj;
 
-            $template = new Template();
-            $template->view("page/views/static-page", $variables);
+            $this->template->view("page/views/static-page", $variables);
 
             return false;
         }
@@ -24,8 +23,7 @@ class ContactController extends BaseController
 
     function defaultAction()
     {
-        $template = new Template();
-        $template->view("contact/views/contact-us");
+        $this->template->view("contact/views/contact-us");
     }
 
 
@@ -40,7 +38,6 @@ class ContactController extends BaseController
         $pageObj->findBy("id", 4);
         $variables["pageObj"] = $pageObj;
 
-        $template = new Template();
-        $template->view("page/views/static-page", $variables);
+        $this->template->view("page/views/static-page", $variables);
     }
 }

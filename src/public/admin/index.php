@@ -29,5 +29,6 @@ if ($module == 'dashboard') {
   include MODULE_PATH . 'dashboard/admin/controllers/DashboardController.php';
 
   $dashboardController = new DashboardController();
+  $dashboardController->template = new Template('layout/default');
   $dashboardController->runAction($action);
 }
