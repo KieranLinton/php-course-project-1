@@ -24,7 +24,7 @@ class DashboardController extends BaseController
     }
     public function defaultAction()
     {
-        echo "welcome";
+        $this->template->view("page/admin/views/page-list");
     }
 
     function loginAction()

@@ -16,6 +16,7 @@ requireOnceAll(ROOT_PATH . 'core/*/*.php');
 requireOnceAll(ROOT_PATH . 'core/*/*/*.php');
 
 require_once MODULE_PATH . 'page/models/Page.php';
+
 require_once MODULE_PATH . 'users/models/User.php';
 
 
@@ -29,6 +30,12 @@ if ($module == 'dashboard') {
   include MODULE_PATH . 'dashboard/admin/controllers/DashboardController.php';
 
   $dashboardController = new DashboardController();
-  $dashboardController->template = new Template('layout/default');
+  $dashboardController->template = new Template('admin/layout/default');
+  $dashboardController->runAction($action);
+} elseif ($module = "page") {
+  require_once MODULE_PATH . 'page/admin/controllers/PageController.php';
+
+  $dashboardController = new PageController();
+  $dashboardController->template = new Template('admin/layout/default');
   $dashboardController->runAction($action);
 }
