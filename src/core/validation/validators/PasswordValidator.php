@@ -12,6 +12,7 @@ class PasswordValidator extends Validator
         return [
             new MinLengthCheck(6),
             new MaxLengthCheck(20),
+            new NoEmptySpaceCheck(),
             new SpecialCharacterCheck(true),
         ];
     }

@@ -12,7 +12,14 @@ class MinLengthCheck
     function validate($value)
     {
         if (strlen($value) < $this->length) {
-            return "must be longer than $this->length characters.";
+            return false;
         }
+
+        return true;
+    }
+
+    function getErrorMessage()
+    {
+        return "must be longer than $this->length characters";
     }
 }

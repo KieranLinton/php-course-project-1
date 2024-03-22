@@ -12,7 +12,14 @@ class MaxLengthCheck
     function validate($value)
     {
         if (strlen($value) > $this->length) {
-            return "cannot be longer than $this->length characters.";
+            return false;
         }
+
+        return true;
+    }
+
+    function getErrorMessage()
+    {
+        return "cannot be longer than $this->length characters";
     }
 }

@@ -8,7 +8,7 @@ define('MODULE_PATH', ROOT_PATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SE
 
 define("ENCRYPTION_SALT", "VeryVerySecureSalt4312$");
 
-require_once ROOT_PATH . "utils/includeAll.php";
+require_once ROOT_PATH . "core/utils/includeAll.php";
 
 requireOnceAll(ROOT_PATH . 'db/*.php');
 requireOnceAll(ROOT_PATH . 'core/*.php');

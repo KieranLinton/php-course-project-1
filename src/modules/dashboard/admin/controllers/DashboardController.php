@@ -47,7 +47,7 @@ class DashboardController extends BaseController
 
         if ($validationError) {
             $_SESSION["validation_errors"] = $validationError;
-            header("Location: /admin/");
+            $this->loginAction();
             return;
         }
 
@@ -59,7 +59,7 @@ class DashboardController extends BaseController
 
         if (!$auth->checkLogin($username, $password)) {
             $_SESSION["validation_errors"] = "Username or password not correct.";
-            header("Location: /admin/");
+            $this->loginAction();
             exit;
         }
 

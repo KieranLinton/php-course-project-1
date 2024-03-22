@@ -1,12 +1,10 @@
 <?php
 
-class IsEmailCheck
+class NoEmptySpaceCheck
 {
     function validate($value)
     {
-        $isEmail = filter_var($value, FILTER_VALIDATE_EMAIL);
-
-        if (!$isEmail) {
+        if (strpos($value, ' ')) {
             return false;
         }
 
@@ -15,6 +13,6 @@ class IsEmailCheck
 
     function getErrorMessage()
     {
-        return "must be a valid email address";
+        return "must not contain empty spaces";
     }
 }
