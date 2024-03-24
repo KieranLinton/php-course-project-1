@@ -2,6 +2,11 @@
 
 class Router extends AbstractEntity
 {
+    public int $id;
+    public string $module;
+    public string $action;
+    public int $entity_id;
+    public string $url;
 
     public function __construct(PDO $dbc)
     {

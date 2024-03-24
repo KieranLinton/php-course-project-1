@@ -8,7 +8,7 @@ class PageListController extends AdminController
         $dbc = $dbh->getConnection();
 
         $pageObj = new PageSummaryView($dbc);
-        $results = $pageObj->getAll();
+        $results = $pageObj->findAll();
         $variables["pageObj"]["pageSumaries"] = $results;
 
         $this->template->view("admin/pageList/views/page-list", $variables);

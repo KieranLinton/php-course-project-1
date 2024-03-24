@@ -9,45 +9,54 @@ abstract class AbstractEntity
     abstract protected function initFields();
 
 
-    public function __construct(PDO $dbc, string $tableName)
+    public function __construct($dbc, string $tableName)
     {
         $this->dbc = $dbc;
         $this->tableName = $tableName;
         $this->initFields();
     }
 
+    private function find(string $fieldName = "", $fieldValue = "")
+    {
+        $preparedFields = [];
+        $sql = "SELECT * FROM " . $this->tableName;
+        if ($fieldName) {
+            $sql .= " WHERE " . $fieldName . " = :value";
+            $preparedFields = ['value' => $fieldValue];
+        }
+        $stmt = $this->dbc->prepare($sql);
+        $stmt->execute($preparedFields);
+
+        $databaseData = $stmt->fetchAll();
+        return $databaseData;
+    }
+
 
     public function findBy(string $fieldName, $fieldValue)
     {
+        $databaseData = $this->find($fieldName, $fieldValue);
 
-        $sql = "SELECT * FROM " . $this->tableName . " WHERE " . $fieldName . " = :value LIMIT 1";
-        $stmt = $this->dbc->prepare($sql);
-        $stmt->execute(['value' => $fieldValue]);
-        $databaseData = $stmt->fetch();
-
-        if (!$databaseData) {
+        if (!$databaseData || !$databaseData[0]) {
             return false;
         }
 
-        $this->setValues($databaseData);
+        $this->setValues($databaseData[0]);
         return true;
     }
 
-    public function getAll()
-    {
 
-        $sql = "SELECT * FROM $this->tableName";
-        echo $sql;
-        $stmt = $this->dbc->prepare($sql);
-        $stmt->execute();
-        $databaseData = $stmt->fetchAll();
+    public function findAll()
+    {
+        $databaseData =  $this->find();
 
         if (!$databaseData) {
             return [];
         }
 
-        $results = array_map(function ($row) {
-            $obj = new $this($this->dbc, $this->tableName);
+        $className = get_class($this);
+
+        $results = array_map(function ($row) use ($className) {
+            $obj = new $className($this->dbc, $this->tableName);
             $obj->setValues($row);
             return $obj;
         }, $databaseData);

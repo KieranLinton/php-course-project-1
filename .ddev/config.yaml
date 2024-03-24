@@ -1,7 +1,7 @@
 name: php-course-project-1
 type: php
 docroot: "/src/public"
-php_version: "8.1"
+php_version: "8.2"
 webserver_type: nginx-fpm
 xdebug_enabled: true
 additional_hostnames: []
@@ -158,7 +158,7 @@ web_environment: []
 # This is not used by most people, most people use the *router* instead
 # of the localhost port.
 
-host_db_port: "32776"
+host_db_port: "52776"
 # The host port binding for the ddev-dbserver can be explicitly specified. It is dynamic
 # unless explicitly specified.
 

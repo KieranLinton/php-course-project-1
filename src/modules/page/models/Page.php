@@ -1,9 +1,13 @@
 <?php
 
-
+// #[\AllowDynamicProperties]
 class Page extends AbstractEntity
 {
-    public function __construct(PDO $dbc)
+    public int $id;
+    public string $title;
+    public string $content;
+
+    public function __construct($dbc)
     {
         parent::__construct($dbc, 'pages');
     }
