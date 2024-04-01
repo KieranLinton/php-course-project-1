@@ -1,5 +1,7 @@
 <?php
 
+namespace core\interfaces;
+
 interface ValidationRuleInterface
 {
     public function validate(string $value): bool;

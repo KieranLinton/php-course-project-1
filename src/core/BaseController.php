@@ -1,5 +1,7 @@
 <?php
 
+namespace core;
+
 class BaseController
 {
     public Template $template;

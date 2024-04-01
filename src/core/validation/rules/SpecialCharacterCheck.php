@@ -1,5 +1,9 @@
 <?php
 
+namespace core\validation\rules;
+
+use core\interfaces\ValidationRuleInterface;
+
 class SpecialCharacterCheck implements ValidationRuleInterface
 {
     private $enabled;

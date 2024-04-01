@@ -2,16 +2,26 @@
 
 session_start();
 
+use core\db\DatabaseConnection;
+use core\Router;
+use core\Template;
+
+
 define('ROOT_PATH', dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR);
 define('VIEW_PATH', ROOT_PATH . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR);
 define('MODULE_PATH', ROOT_PATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR);
 
-require_once ROOT_PATH . "core/utils/includeAll.php";
 
-requireOnceAll(ROOT_PATH . 'db/*.php');
-requireOnceAll(ROOT_PATH . 'core/*.php');
 
-require_once MODULE_PATH . 'page/models/Page.php';
+spl_autoload_register(function ($class_name) {
+
+  $file = ROOT_PATH . str_replace('\\', '/', $class_name) . '.php';
+
+  // if the file exists, require it
+  if (file_exists($file)) {
+    require $file;
+  }
+});
 
 DatabaseConnection::connect("db:3306", "db", "db", "db");
 
@@ -30,20 +40,23 @@ if (!$router->findBy("url", $action)) {
   $pageTemplate->view("../views/status-pages/404");
   return;
 }
+$routerModule = $router->{"module"};
 
 $action = !!$router->{"action"} ? $router->{"action"} : 'default';
-$moduleName = ucfirst($router->{"module"}) . 'Controller';
+$moduleName = ucfirst($routerModule) . 'Controller';
 
-$modulePath = MODULE_PATH . $router->{'module'} . "/controllers/$moduleName.php";
+$modulePath = MODULE_PATH . $routerModule . "/controllers/$moduleName.php";
 
 if (!file_exists($modulePath)) {
   $pageTemplate->view("../status-pages/404");
   return;
 }
 
-include $modulePath;
+require $modulePath;
 
-$controller = new $moduleName();
+$class =  "modules\\$routerModule\\controllers\\$moduleName";
+
+$controller = new $class();
 $controller->template = $pageTemplate;
 $controller->setEntityId($router->{"entity_id"});
 $controller->runAction($action);

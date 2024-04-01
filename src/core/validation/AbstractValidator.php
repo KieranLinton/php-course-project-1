@@ -1,5 +1,8 @@
 <?php
 
+
+namespace core\validation;
+
 abstract class AbstractValidator
 {
     private $fieldName;

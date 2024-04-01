@@ -1,5 +1,9 @@
 <?php
 
+namespace core\validation\rules;
+
+use core\interfaces\ValidationRuleInterface;
+
 class IsEmailCheck implements ValidationRuleInterface
 {
     function validate(string $value): bool

@@ -1,5 +1,13 @@
 <?php
 
+namespace modules\page\controllers;
+
+
+use core\BaseController;
+use core\db\DatabaseConnection;
+use modules\page\models\Page;
+
+
 class PageController extends BaseController
 {
     public function defaultAction()

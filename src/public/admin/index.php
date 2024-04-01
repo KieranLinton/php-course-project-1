@@ -8,18 +8,21 @@ define('MODULE_PATH', ROOT_PATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SE
 
 define("ENCRYPTION_SALT", "VeryVerySecureSalt4312$");
 
-require_once ROOT_PATH . "core/utils/includeAll.php";
+use core\db\DatabaseConnection;
+use modules\admin\login\controllers\LoginController;
+use modules\admin\dashboard\controllers\DashboardController;
+use modules\admin\pageList\controllers\PageListController;
+use core\Template;
 
-requireOnceAll(ROOT_PATH . 'db/*.php');
-requireOnceAll(ROOT_PATH . 'core/*.php');
-requireOnceAll(ROOT_PATH . 'core/*/*.php');
-requireOnceAll(ROOT_PATH . 'core/*/*/*.php');
+spl_autoload_register(function ($class_name) {
 
-require_once MODULE_PATH . 'page/models/Page.php';
-require_once MODULE_PATH . 'admin/pageList/models/PageSummaryView.php';
+  $file = ROOT_PATH . str_replace('\\', '/', $class_name) . '.php';
 
-require_once MODULE_PATH . 'users/models/User.php';
-
+  // if the file exists, require it
+  if (file_exists($file)) {
+    require $file;
+  }
+});
 
 DatabaseConnection::connect("db:3306", "db", "db", "db");
 
@@ -28,22 +31,17 @@ $action =  $_POST['action'] ?? $_GET['action'] ?? 'default';
 
 switch ($module) {
   case 'login':
-    include MODULE_PATH . 'admin/login/controllers/LoginController.php';
-
     $dashboardController = new LoginController();
     $dashboardController->runAction($action);
     break;
-  case 'dashboard':
-    include MODULE_PATH . 'admin/dashboard/controllers/DashboardController.php';
 
+  case 'dashboard':
     $dashboardController = new DashboardController();
     $dashboardController->template = new Template('admin/layout/default');
     $dashboardController->runAction($action);
     break;
 
   case $module = "pageList":
-    require_once MODULE_PATH . 'admin/pageList/controllers/PageListController.php';
-
     $dashboardController = new PageListController();
     $dashboardController->template = new Template('admin/layout/default');
     $dashboardController->runAction($action);

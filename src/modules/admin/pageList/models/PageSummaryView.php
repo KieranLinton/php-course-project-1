@@ -1,5 +1,9 @@
 <?php
 
+namespace modules\admin\pageList\models;
+
+use  PDO;
+use core\db\AbstractEntity;
 
 class PageSummaryView extends AbstractEntity
 {

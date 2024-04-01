@@ -1,5 +1,10 @@
 <?php
 
+namespace core;
+
+use core\db\AbstractEntity;
+use PDO;
+
 class Router extends AbstractEntity
 {
     public int $id;

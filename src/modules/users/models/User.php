@@ -1,5 +1,10 @@
 <?php
 
+namespace modules\users\models;
+
+use  PDO;
+use core\db\AbstractEntity;
+
 class User extends AbstractEntity
 {
 

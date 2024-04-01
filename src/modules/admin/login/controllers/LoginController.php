@@ -1,6 +1,12 @@
 <?php
 
-class LoginController extends BaseController
+namespace modules\admin\login\controllers;
+
+use core;
+use core\validation\validators;
+
+
+class LoginController extends core\BaseController
 {
     protected function runBeforeAction()
     {
@@ -21,7 +27,7 @@ class LoginController extends BaseController
     function submitLoginFormAction()
     {
 
-        $userNameValidator = new UsernameValidator();
+        $userNameValidator = new validators\UsernameValidator();
 
         $username = $_POST["username"] ?? "";
         $password = $_POST["password"] ?? "";
@@ -34,10 +40,10 @@ class LoginController extends BaseController
             exit;
         }
 
-        $dbh = DatabaseConnection::getInstance();
+        $dbh = core\db\DatabaseConnection::getInstance();
         $dbc = $dbh->getConnection();
 
-        $auth = new Auth($dbc);
+        $auth = new core\Auth($dbc);
 
         if (!$auth->checkLogin($username, $password)) {
             $_SESSION["validation_errors"] = "Username or password not correct.";

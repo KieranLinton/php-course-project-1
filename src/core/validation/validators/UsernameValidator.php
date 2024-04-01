@@ -1,5 +1,11 @@
 <?php
 
+namespace core\validation\validators;
+
+use core\validation\AbstractValidator;
+use core\validation\RuleList;
+use core\validation\rules;
+
 class UsernameValidator extends AbstractValidator
 {
     public function __construct()
@@ -10,8 +16,8 @@ class UsernameValidator extends AbstractValidator
     protected function getRuleList(): RuleList
     {
         return new RuleList(
-            new MinLengthCheck(3),
-            new IsEmailCheck()
+            new rules\MinLengthCheck(3),
+            new rules\IsEmailCheck()
         );
     }
 }

@@ -1,5 +1,11 @@
 <?php
 
+namespace modules\contact\controllers;
+
+use core\BaseController;
+use core\db\DatabaseConnection;
+use modules\page\models\Page;
+
 class ContactController extends BaseController
 {
 

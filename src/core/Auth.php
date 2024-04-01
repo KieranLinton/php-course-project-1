@@ -1,4 +1,10 @@
 <?php
+
+namespace core;
+
+use PDO;
+use modules\users\models\User;
+
 class Auth
 {
     protected $dbc;

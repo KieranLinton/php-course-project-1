@@ -1,5 +1,9 @@
 <?php
 
+namespace core\validation\rules;
+
+use core\interfaces\ValidationRuleInterface;
+
 class MaxLengthCheck implements ValidationRuleInterface
 {
     private $length;

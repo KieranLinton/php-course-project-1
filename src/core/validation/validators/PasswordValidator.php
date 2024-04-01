@@ -1,5 +1,12 @@
 <?php
 
+namespace core\validation\validators;
+
+use core\validation\AbstractValidator;
+use core\validation\RuleList;
+use core\validation\rules;
+
+
 class PasswordValidator extends AbstractValidator
 {
     public function __construct()
@@ -10,10 +17,10 @@ class PasswordValidator extends AbstractValidator
     protected function getRuleList(): RuleList
     {
         return new RuleList(
-            new MinLengthCheck(6),
-            new MaxLengthCheck(20),
-            new NoEmptySpaceCheck(),
-            new SpecialCharacterCheck(true)
+            new rules\MinLengthCheck(6),
+            new rules\MaxLengthCheck(20),
+            new rules\NoEmptySpaceCheck(),
+            new rules\SpecialCharacterCheck(true)
         );
     }
 }

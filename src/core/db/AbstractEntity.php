@@ -1,5 +1,8 @@
 <?php
 
+namespace core\db;
+
+#[\AllowDynamicProperties]
 abstract class AbstractEntity
 {
     protected $dbc;

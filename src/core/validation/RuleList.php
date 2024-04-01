@@ -1,5 +1,11 @@
 <?php
 
+
+namespace core\validation;
+
+use core\interfaces\ValidationRuleInterface;
+
+
 class RuleList
 {
 

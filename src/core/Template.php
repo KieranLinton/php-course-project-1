@@ -1,8 +1,9 @@
 <?php
 
+namespace core;
+
 class Template
 {
-
     private $layout;
 
     public function __construct($layout)

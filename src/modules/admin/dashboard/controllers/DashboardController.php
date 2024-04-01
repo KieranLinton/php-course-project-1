@@ -1,5 +1,11 @@
 <?php
 
+
+namespace modules\admin\dashboard\controllers;
+
+use core\AdminController;
+
+
 class DashboardController extends AdminController
 {
 

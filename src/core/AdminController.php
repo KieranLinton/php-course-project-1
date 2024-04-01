@@ -1,6 +1,6 @@
 <?php
 
-require_once ROOT_PATH . "core/BaseController.php";
+namespace core;
 
 class AdminController extends BaseController
 {

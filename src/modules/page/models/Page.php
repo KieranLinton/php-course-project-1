@@ -1,5 +1,9 @@
 <?php
 
+namespace modules\page\models;
+
+use core\db\AbstractEntity;
+
 // #[\AllowDynamicProperties]
 class Page extends AbstractEntity
 {
