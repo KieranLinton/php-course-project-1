@@ -7,6 +7,7 @@
         <form role="form" action="/admin/index.php" method="post">
             <input type="hidden" name="module" value="pageList" />
             <input type="hidden" name="action" value="submitEditPageForm" />
+            <input type="hidden" name="id" value="<?= $page->id ?>" />
             <div class="form-group">
                 <label>Page name</label>
                 <input type="text" name="title" class="form-control" value="<?= $page->title ?>" placeholder="Page name">

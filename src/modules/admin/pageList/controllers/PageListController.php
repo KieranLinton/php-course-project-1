@@ -39,6 +39,26 @@ class PageListController extends AdminController
 
     public function submitEditPageFormAction()
     {
+        $dbh = DatabaseConnection::getInstance();
+        $dbc = $dbh->getConnection();
+
         var_dump($_POST);
+
+
+        $id = $_POST["id"];
+
+        $page = new Page($dbc);
+
+        $page->findBy("id", $id);
+
+        if (!$page) {
+            return 404;
+        }
+
+        $page->setValues($_POST);
+
+        $page->save();
+
+        header("Location: /admin/index.php?module=pageList");
     }
 }

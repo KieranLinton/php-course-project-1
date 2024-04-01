@@ -8,6 +8,7 @@ abstract class AbstractEntity
     protected $dbc;
     protected $tableName;
     protected $fields;
+    protected $primaryKeys = ['id'];
 
     abstract protected function initFields();
 
@@ -67,10 +68,49 @@ abstract class AbstractEntity
         return $results;
     }
 
+    public function save()
+    {
+
+        $fieldBindings = [];
+        $keyBindings = [];
+        $preparedFields = [];
+
+        foreach ($this->primaryKeys as $fieldName) {
+            $keyBindings[$fieldName] = $fieldName . ' = :' . $fieldName;
+            $preparedFields[$fieldName] = $this->$fieldName;
+        }
+
+        foreach ($this->fields as $fieldName) {
+            $fieldBindings[$fieldName] = $fieldName . ' = :' . $fieldName;
+            $preparedFields[$fieldName] = $this->$fieldName;
+        }
+
+        $fieldBindingsSql = join(', ', $fieldBindings);
+        $keyBindingsSql = join(', ', $keyBindings);
+
+
+        $sql = "UPDATE " . $this->tableName . " SET " . $fieldBindingsSql
+            . " WHERE " . $keyBindingsSql;
+
+        //echo $sql;
+
+        $stmt = $this->dbc->prepare($sql);
+        $stmt->execute($preparedFields);
+    }
+
     public function setValues($values)
     {
+
+        foreach ($this->primaryKeys as $keyName) {
+            if (isset($values[$keyName])) {
+                $this->$keyName = $values[$keyName];
+            }
+        }
+
         foreach ($this->fields as $fieldName) {
-            $this->$fieldName = $values[$fieldName];
+            if (isset($values[$fieldName])) {
+                $this->$fieldName = $values[$fieldName];
+            }
         }
     }
 }
