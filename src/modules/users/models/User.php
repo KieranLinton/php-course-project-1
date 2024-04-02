@@ -16,7 +16,6 @@ class User extends AbstractEntity
     protected function initFields()
     {
         $this->fields = [
-            'id',
             'name',
             'username',
             'password',

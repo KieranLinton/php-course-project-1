@@ -2,17 +2,19 @@
 
 declare(strict_types=1);
 
-use PHPUnit\Framework\TestCase;
+require_once 'src/core/db/AbstractEntity.php';
 
-
-require_once 'src/db/AbstractEntity.php';
 require_once 'src/modules/page/models/Page.php';
+
+use PHPUnit\Framework\TestCase;
+use \modules\page\models\Page;
 
 
 class FakeSmt
 {
     function execute()
     {
+        echo 'executed fake ';
     }
     function fetchAll()
     {
@@ -53,5 +55,32 @@ final class ActiveRecordTest extends TestCase
         $page->findBy("id", 10);
 
         $this->assertEquals(10, $page->id);
+    }
+
+    public function testSave(): void
+    {
+        $mockDatabase = $this->getMockBuilder(FakeDatabaseConnection::class)
+            ->onlyMethods(["prepare"])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $mockDatabase->expects($this->exactly(2))
+            ->method('prepare')
+            ->with(
+                $this->logicalOr(
+                    $this->equalTo('SELECT * FROM pages WHERE id = :value'),
+                    $this->equalTo('UPDATE pages SET title = :title, content = :content WHERE id = :id')
+                )
+
+            )->willReturn(new FakeSmt());
+
+        $page = new Page($mockDatabase);
+
+        $page->findBy('id', 10);
+
+        $page->title = "new title";
+        $page->save();
+
+        $this->assertEquals("new title", $page->title);
     }
 }

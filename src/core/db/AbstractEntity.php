@@ -5,6 +5,8 @@ namespace core\db;
 #[\AllowDynamicProperties]
 abstract class AbstractEntity
 {
+    public int $id;
+
     protected $dbc;
     protected $tableName;
     protected $fields;

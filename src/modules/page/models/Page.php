@@ -7,7 +7,6 @@ use core\db\AbstractEntity;
 // #[\AllowDynamicProperties]
 class Page extends AbstractEntity
 {
-    public int $id;
     public string $title;
     public string $content;
 
@@ -19,7 +18,6 @@ class Page extends AbstractEntity
     protected function initFields()
     {
         $this->fields = [
-            'id',
             'title',
             'content'
         ];

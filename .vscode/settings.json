@@ -14,5 +14,7 @@
       "username": "db",
       "password": "db"
     }
-  ]
+  ],
+  "phpunit.testExplorer.include": "./tests/*Test.php",
+  "phpunit.testExplorer.enabled": true
 }
