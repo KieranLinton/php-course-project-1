@@ -16,5 +16,6 @@
     }
   ],
   "phpunit.testExplorer.include": "./tests/*Test.php",
-  "phpunit.testExplorer.enabled": true
+  "phpunit.testExplorer.enabled": true,
+  "cSpell.words": ["Stringable"]
 }

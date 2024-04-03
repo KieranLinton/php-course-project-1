@@ -8,6 +8,9 @@ use core\db\DatabaseConnection;
 use modules\page\models\Page;
 use modules\admin\pageList\models\PageSummaryView;
 
+use Monolog\Level;
+
+
 class PageListController extends AdminController
 {
     public function defaultAction()
@@ -22,16 +25,34 @@ class PageListController extends AdminController
         $this->template->view("admin/pageList/views/page-list", $variables);
     }
 
-    public function editPageAction()
+    public function deletePageAction()
     {
-
-        $pageId = $_GET['id'];
+        $pageId = $_GET['id']; // Not sure how to implement DELETE 
 
         $dbh = DatabaseConnection::getInstance();
         $dbc = $dbh->getConnection();
 
         $pageObj = new Page($dbc);
-        $pageObj->findBy("id", $pageId);
+
+        $pageObj->deleteBy("id", $pageId);
+
+        header("Location: /admin/index.php?module=pageList");
+    }
+
+    public function editPageAction()
+    {
+        $pageId = $_GET['id'] ?? null;
+
+        $dbh = DatabaseConnection::getInstance();
+        $dbc = $dbh->getConnection();
+
+        $pageObj = new Page($dbc);
+
+        if ($pageId !== null && !$pageObj->findBy("id", $pageId)) {
+            echo 404;
+            return;
+        }
+
         $variables["page"] = $pageObj;
 
         $this->template->view("admin/pageList/views/page-item-edit", $variables);
@@ -39,25 +60,28 @@ class PageListController extends AdminController
 
     public function submitEditPageFormAction()
     {
+        $id = $_POST["id"] ?? null;
+
+        var_dump($id);
+
         $dbh = DatabaseConnection::getInstance();
         $dbc = $dbh->getConnection();
 
-        var_dump($_POST);
-
-
-        $id = $_POST["id"];
-
         $page = new Page($dbc);
 
-        $page->findBy("id", $id);
-
-        if (!$page) {
-            return 404;
+        if ($id !== null && !$page->findBy("id", $id)) {
+            echo 404;
+            return;
         }
 
         $page->setValues($_POST);
-
         $page->save();
+
+        if ($id !== null) {
+            $this->log(Level::Info, "Admin modified page $id");
+        } else {
+            $this->log(Level::Info, "Admin created a new page");
+        }
 
         header("Location: /admin/index.php?module=pageList");
     }

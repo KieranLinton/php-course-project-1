@@ -77,32 +77,47 @@ abstract class AbstractEntity
         $keyBindings = [];
         $preparedFields = [];
 
-        foreach ($this->primaryKeys as $fieldName) {
-            $keyBindings[$fieldName] = $fieldName . ' = :' . $fieldName;
-            $preparedFields[$fieldName] = $this->$fieldName;
+        if ($this->id ?? false) {
+            foreach ($this->primaryKeys as $fieldName) {
+                $keyBindings[$fieldName] = "$fieldName = :$fieldName";
+                $preparedFields[$fieldName] = $this->$fieldName;
+            }
         }
 
         foreach ($this->fields as $fieldName) {
-            $fieldBindings[$fieldName] = $fieldName . ' = :' . $fieldName;
+            $fieldBindings[$fieldName] = "$fieldName = :$fieldName";
             $preparedFields[$fieldName] = $this->$fieldName;
         }
 
         $fieldBindingsSql = join(', ', $fieldBindings);
         $keyBindingsSql = join(', ', $keyBindings);
 
-
-        $sql = "UPDATE " . $this->tableName . " SET " . $fieldBindingsSql
-            . " WHERE " . $keyBindingsSql;
-
-        //echo $sql;
+        // TODO: use MariaDB INSERT ON DUPLICATE KEY UPDATE
+        // https://mariadb.com/kb/en/insert-on-duplicate-key-update/
+        if (!!$keyBindings) {
+            $sql = "UPDATE  $this->tableName  SET  $fieldBindingsSql
+             WHERE $keyBindingsSql";
+        } else {
+            $sql = "INSERT $this->tableName SET $fieldBindingsSql";
+        }
 
         $stmt = $this->dbc->prepare($sql);
         $stmt->execute($preparedFields);
     }
 
+    public function deleteBy(string $fieldName, $fieldValue = null)
+    {
+        $fieldValue = $fieldValue ?? $this->$fieldName;
+
+        $sql = "DELETE FROM $this->tableName 
+        WHERE $fieldName = :val";
+
+        $stmt = $this->dbc->prepare($sql);
+        $stmt->execute(["val" => $fieldValue]);
+    }
+
     public function setValues($values)
     {
-
         foreach ($this->primaryKeys as $keyName) {
             if (isset($values[$keyName])) {
                 $this->$keyName = $values[$keyName];

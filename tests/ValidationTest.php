@@ -11,7 +11,6 @@ require_once 'src/core/validation/rules/IsEmailCheck.php';
 
 final class ValidationTest extends TestCase
 {
-
     public function testValidateEmail(): void
     {
         $emailValidation = new IsEmailCheck();

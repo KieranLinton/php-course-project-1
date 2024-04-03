@@ -14,7 +14,7 @@ class FakeSmt
 {
     function execute()
     {
-        echo 'executed fake ';
+        echo 'Ran fake execute ';
     }
     function fetchAll()
     {
